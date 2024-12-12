@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Facts App</title>
+    <!-- Include React and ReactDOM from CDN -->
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    
+    <style>
+        .App {
+          text-align: center;
+          padding: 20px;
+        }
+
+        .category-filters {
+          margin: 20px 0;
+        }
+
+        .category-filters button {
+          margin: 0 10px;
+          padding: 8px 16px;
+          border: none;
+          border-radius: 20px;
+          cursor: pointer;
+        }
+
+        .category-filters button.active {
+          background-color: #007bff;
+          color: white;
+        }
+
+        .facts-container {
+          display: grid;
+          grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+          gap: 20px;
+          padding: 20px;
+        }
+
+        .fact-card {
+          border: 1px solid #ddd;
+          border-radius: 8px;
+          padding: 20px;
+          box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .fact-meta {
+          display: flex;
+          justify-content: space-between;
+          margin-top: 10px;
+          font-size: 0.9em;
+          color: #666;
+        }
+
+        .share-button {
+          margin-top: 10px;
+          padding: 8px 16px;
+          background-color: #28a745;
+          color: white;
+          border: none;
+          border-radius: 4px;
+          cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        // Your JSON data
+        const factsData = {
+            "personalFacts": [
+                // Add your facts here following the structure from the JSON file
+                {
+                    "id": 1,
+                    "fact": "Sample fact 1",
+                    "category": "hobbies",
+                    "funLevel": "amusing"
+                }
+                // Add more facts as needed
+            ]
+        };
+
+        // React Component
+        function App() {
+            const [selectedCategory, setSelectedCategory] = React.useState('all');
+            const { personalFacts } = factsData;
+
+            const categories = ['all', ...new Set(personalFacts.map(fact => fact.category))];
+
+            const filteredFacts = selectedCategory === 'all' 
+                ? personalFacts 
+                : personalFacts.filter(fact => fact.category === selectedCategory);
+
+            return (
+                <div className="App">
+                    <header className="App-header">
+                        <h1>Fun Facts About Me</h1>
+                        <div className="category-filters">
+                            {categories.map(category => (
+                                <button
+                                    key={category}
+                                    onClick={() => setSelectedCategory(category)}
+                                    className={selectedCategory === category ? 'active' : ''}
+                                >
+                                    {category}
+                                </button>
+                            ))}
+                        </div>
+                    </header>
+                    <div className="facts-container">
+                        {filteredFacts.map(fact => (
+                            <div key={fact.id} className="fact-card">
+                                <p className="fact-text">{fact.fact}</p>
+                                <div className="fact-meta">
+                                    <span className="category">{fact.category}</span>
+                                    <span className="fun-level">{fact.funLevel}</span>
+                                </div>
+                                {fact.related_image && (
+                                    <img src={fact.related_image} alt="Related to fact" />
+                                )}
+                                <button 
+                                    onClick={() => navigator.share({ 
+                                        title: 'Fun Fact', 
+                                        text: fact.fact 
+                                    }).catch(console.error)}
+                                    className="share-button"
+                                >
+                                    Share
+                                </button>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            );
+        }
+
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+</html>

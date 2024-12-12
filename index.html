@@ -3,119 +3,80 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Space Facts App</title>
-    <!-- Include React and ReactDOM from CDN -->
-    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
-    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
-    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
-    
+    <title>Random Facts Generator</title>
     <style>
-        .App {
-          text-align: center;
-          padding: 20px;
-          max-width: 800px;
-          margin: 0 auto;
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+            background-color: #f0f0f0;
         }
-
-        .facts-container {
-          padding: 20px;
+        .container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
         }
-
-        .fact-card {
-          border: 1px solid #ddd;
-          border-radius: 8px;
-          padding: 20px;
-          box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-          margin-bottom: 20px;
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 20px 0;
         }
-
-        .fact-meta {
-          display: flex;
-          justify-content: space-between;
-          margin-top: 10px;
-          font-size: 0.9em;
-          color: #666;
+        button:hover {
+            background-color: #45a049;
         }
-
-        .next-button {
-          padding: 12px 24px;
-          background-color: #007bff;
-          color: white;
-          border: none;
-          border-radius: 4px;
-          cursor: pointer;
-          font-size: 1.1em;
-          transition: background-color 0.2s;
-        }
-
-        .next-button:hover {
-          background-color: #0056b3;
-        }
-
-        .source {
-          font-style: italic;
-          font-size: 0.8em;
-          color: #666;
-          margin-top: 10px;
+        #factDisplay {
+            font-size: 18px;
+            margin: 20px 0;
+            min-height: 50px;
         }
     </style>
 </head>
 <body>
-    <div id="root"></div>
+    <div class="container">
+        <h1>Random Facts Generator</h1>
+        <p id="factDisplay">Click the button to generate a random fact!</p>
+        <button onclick="getRandomFact()">Generate Fact</button>
+    </div>
 
-    <script type="text/babel">
-        // Space facts data
-        const factsData = {
-          "spaceFacts": [
-            {
-              "id": 1,
-              "fact": "Light from the Sun takes approximately 8 minutes and 20 seconds to reach Earth",
-              "category": "stars",
-              "difficulty": "basic",
-              "source": "NASA Solar System Guide"
-            },
-            // Add the rest of your space facts here
-          ]
-        };
-
-        function App() {
-          const [currentFactIndex, setCurrentFactIndex] = React.useState(0);
-          const { spaceFacts } = factsData;
-
-          const showNextFact = () => {
-            setCurrentFactIndex((prevIndex) => 
-              prevIndex === spaceFacts.length - 1 ? 0 : prevIndex + 1
-            );
-          };
-
-          const currentFact = spaceFacts[currentFactIndex];
-
-          return (
-            <div className="App">
-              <header className="App-header">
-                <h1>Space Facts</h1>
-              </header>
-              <div className="facts-container">
-                <div className="fact-card">
-                  <p className="fact-text">{currentFact.fact}</p>
-                  <div className="fact-meta">
-                    <span className="category">{currentFact.category}</span>
-                    <span className="difficulty">{currentFact.difficulty}</span>
-                  </div>
-                  <p className="source">{currentFact.source}</p>
-                </div>
-                <button 
-                  onClick={showNextFact}
-                  className="next-button"
-                >
-                  Next Fact
-                </button>
-              </div>
-            </div>
-          );
+    <script>
+        // Embedding the JavaScript directly
+        function getRandomFact() {
+            const factDisplay = document.getElementById('factDisplay');
+            const facts = {
+                "facts": [
+                    "A day on Venus is longer than its year",
+                    "Honey never spoils. Archaeologists found 3000-year-old honey still preserved",
+                    "Octopuses have three hearts",
+                    "Bananas are berries, but strawberries aren't",
+                    "A group of flamingos is called a flamboyance",
+                    "The first oranges weren't orange",
+                    "Dolphins give each other names",
+                    "Sloths can hold their breath for up to 40 minutes underwater",
+                    "Cows have best friends and get stressed when separated",
+                    "The shortest war in history lasted 38 minutes",
+                    "A pearl can be dissolved by vinegar",
+                    "The Great Wall of China is not visible from space",
+                    "Butterflies taste with their feet",
+                    "A day on Mars is about 24 hours and 37 minutes",
+                    "Blue whales' hearts can weigh as much as a car",
+                    "Penguins have knees",
+                    "Lightning strikes the Earth about 100 times per second",
+                    "The longest word without a vowel is 'rhythm'",
+                    "A jiffy is an actual unit of time: 1/100th of a second",
+                    "The average person spends 6 months of their lifetime waiting for red lights"
+                ]
+            };
+            const randomIndex = Math.floor(Math.random() * facts.facts.length);
+            factDisplay.textContent = facts.facts[randomIndex];
         }
-
-        ReactDOM.render(<App />, document.getElementById('root'));
     </script>
 </body>
 </html>

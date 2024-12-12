@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Random Facts Generator</title>
     <style>
+        @keyframes backgroundGradient {
+            0% { background: linear-gradient(135deg, #f5f7fa, #c3cfe2); }
+            25% { background: linear-gradient(135deg, #c3cfe2, #d4fc79); }
+            50% { background: linear-gradient(135deg, #d4fc79, #96e6a1); }
+            75% { background: linear-gradient(135deg, #96e6a1, #a1c4fd); }
+            100% { background: linear-gradient(135deg, #a1c4fd, #f5f7fa); }
+        }
+
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             max-width: 900px;
@@ -16,21 +24,26 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            animation: backgroundGradient 10s infinite alternate;
+            background-size: 400% 400%;
         }
+
         .container {
-            background-color: white;
+            background-color: rgba(255, 255, 255, 0.9);
             padding: 40px;
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             width: 100%;
             max-width: 800px;
         }
+
         h1 {
             color: #2c3e50;
             margin-bottom: 30px;
             font-size: 2.5em;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
         }
+
         button {
             padding: 15px 30px;
             font-size: 18px;
@@ -43,13 +56,16 @@
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(76, 175, 80, 0.3);
         }
+
         button:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(76, 175, 80, 0.4);
         }
+
         button:active {
             transform: translateY(1px);
         }
+
         #factDisplay {
             font-size: 20px;
             margin: 30px 0;
@@ -61,11 +77,13 @@
             border-radius: 10px;
             transition: all 0.3s ease;
         }
+
         .fact-container {
             position: relative;
             padding: 20px;
             margin: 20px 0;
         }
+
         .quote-marks {
             font-size: 60px;
             color: #4CAF50;
